@@ -21,7 +21,7 @@
           <Key>
             <PropertyRef Name="CUSTID" />
           </Key>
-          <Property Name="CUSTID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CUSTID" Type="number" Precision="38" Scale="0" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="FNAME" Type="varchar2" MaxLength="40" />
           <Property Name="LNAME" Type="varchar2" MaxLength="40" />
           <Property Name="PHONENUMBER" Type="varchar2" MaxLength="40" />
@@ -179,7 +179,7 @@ FROM "TOURESBALON"."CUSTOMER_ADDRESS" "CUSTOMER_ADDRESS"</DefiningQuery>
           <Key>
             <PropertyRef Name="CUSTID" />
           </Key>
-          <Property Name="CUSTID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="CUSTID" Type="Decimal" Nullable="false" Precision="38" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FNAME" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="LNAME" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="PHONENUMBER" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />

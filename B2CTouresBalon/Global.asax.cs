@@ -34,7 +34,7 @@ namespace B2CTouresBalon
                 FirstName = serializeModel.FirstName,
                 LastName = serializeModel.LastName,
                 CustId = serializeModel.CustId,
-                roles = serializeModel.roles
+                Roles = serializeModel.Roles
             };
 
             HttpContext.Current.User = newUser;

@@ -1,96 +1,112 @@
 ﻿@using Microsoft.Ajax.Utilities
-@model B2CTouresBalon.ServicioProductos.Producto
+@model B2CTouresBalon.Models.ProductosModel
 
 @if (Model != null)
 {
-    <div>
-        <h4>Producto</h4>
-        <hr/>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.id_producto)
-            </dt>
+    foreach (var p in Model.Productos)
+    {
 
-            <dd>
-                @Html.DisplayFor(model => model.id_producto)
-            </dd>
+        <div>
+            <h4>Producto</h4>
+            <hr/>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => p.id_producto)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.espectaculo)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => p.id_producto)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.espectaculo)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => p.espectaculo)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.descripcion)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => p.espectaculo)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.descripcion)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => p.descripcion)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.fecha_llegada)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => p.descripcion)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.fecha_llegada)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => p.fecha_llegada)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.fecha_llegadaSpecified)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => p.fecha_llegada)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.fecha_llegadaSpecified)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => p.fecha_salida)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.fecha_salida)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => p.fecha_salida)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.fecha_salida)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => p.fecha_espectaculo)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.fecha_salidaSpecified)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => p.fecha_espectaculo)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.fecha_salidaSpecified)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => p.imagen_producto)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.fecha_espectaculo)
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => p.imagen_producto)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.fecha_espectaculo)
-            </dd>
+            </dl>
+        </div>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.fecha_espectaculoSpecified)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.fecha_espectaculoSpecified)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.imagen_producto)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.imagen_producto)
-            </dd>
-
-        </dl>
+        <h5>
+            @Html.ActionLink("Add to Cart", "AddItem", "ShoppingCart", new { idProducto = p.id_producto, cantidad = 1 }, null)
+        </h5>
+    }
+    <hr>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                @{
+                    if (Model.ProductosRelacionados != null)
+                    {
+                        foreach (var prod in Model.ProductosRelacionados)
+                        {
+                            var precio = prod.tipo_espectaculo.precio + prod.tipo_hospedaje.precio + prod.tipo_transporte.precio;
+                            <div class="col-sm-4 col-lg-4 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="http://placehold.it/320x150" alt="">
+                                    <div class="caption">
+                                        <h5>
+                                            <a href="@Url.Action("Details", "Product", new {idProducto = prod.id_producto})" class="elements"><span class="text-justify">@prod.espectaculo</span></a>
+                                        </h5>
+                                        <h5>$ @precio</h5>
+                                        <h5>
+                                            @Html.ActionLink("Add to Cart", "AddItem", "ShoppingCart", new { idProducto = prod.id_producto, cantidad = 1 }, null)
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
     </div>
-}
+                    }
+
+
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Home", "Index", "Home")
 </p>

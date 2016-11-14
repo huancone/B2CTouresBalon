@@ -7,10 +7,9 @@
     <form class="form-inline">
         <div class="form-group">
             @Html.HiddenFor(model => model.Page)
-            @Html.LabelFor(model => model.SearchString)
             @Html.TextBox("SearchString")
+            <button type="submit" class="btn btn-primary">Search Products</button>
         </div>
-        <button type="submit" class="btn btn-primary">Send invitation</button>
     </form>
 }
 <div>
@@ -33,24 +32,31 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row">
-                @foreach (var producto in Model.Productos)
-                {
-                    var precio = producto.tipo_espectaculo.precio + producto.tipo_hospedaje.precio + producto.tipo_transporte.precio;
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$ @precio</h4>
-                                <h4>
-                                    <a href="@Url.Action("Details", "Product", new { idProducto = producto.id_producto} )" class="elements"><span>@producto.espectaculo</span></a>
-                                </h4>
-                                <p>
-                                    @producto.ciudad_espectaculo.pais
-                                </p>
-                            </div>
-                            @Html.ActionLink("Add to Cart", "AddItem", "ShoppingCart", new { idProducto = producto.id_producto, cantidad = 1 }, null)
+                @{
+                    if (Model.Productos != null)
+                    {
+                        foreach (var producto in Model.Productos)
+                        {
+                            var precio = producto.tipo_espectaculo.precio + producto.tipo_hospedaje.precio + producto.tipo_transporte.precio;
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="http://placehold.it/320x150" alt="">
+                        <div class="caption">
+                            <h5>
+                                <a href="@Url.Action("Details", "Product", new {idProducto = producto.id_producto})" class="elements"><span class="text-justify">@producto.espectaculo</span></a>
+                            </h5>
+                            <p>
+                                @producto.ciudad_espectaculo.pais
+                            </p>
+                            <h5>$ @precio</h5>
+                            <h5>
+                                @Html.ActionLink("Add to Cart", "AddItem", "ShoppingCart", new { idProducto = producto.id_producto, cantidad = 1 }, null)
+                            </h5>
                         </div>
                     </div>
+                </div>
+                        }
+                    }
                 }
             </div>
         </div>

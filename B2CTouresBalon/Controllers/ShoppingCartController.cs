@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Core.Mapping;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -9,10 +10,8 @@ using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
 using Item = B2CTouresBalon.Models.Item;
-using System;
-using B2CTouresBalon.ServicioClientes;
-using B2CTouresBalon.ServicioOrdenes;
 using B2CTouresBalon.ServicioProductos;
+using Microsoft.Ajax.Utilities;
 
 namespace B2CTouresBalon.Controllers
 {
@@ -21,14 +20,16 @@ namespace B2CTouresBalon.Controllers
         // GET: AddItem
         public ActionResult Index()
         {
+            if (!ModelState.IsValid) return RedirectToAction("Index", "Product");
+            var clientConfiguration = new MemcachedClientConfiguration { Protocol = MemcachedProtocol.Binary };
+            clientConfiguration.Servers.Add(new IPEndPoint(IPAddress.Parse("192.168.99.100"), 32768));
+
             using (var client = new MemcachedClient())
             {
-                if (!ModelState.IsValid) return RedirectToAction("Index", "Product");
                 var currentUser = System.Web.HttpContext.Current.User as CustomPrincipal;
                 if (currentUser == null) return RedirectToAction("Index", "Account");
-                var model = client.Get<Cart>("Cart-" + currentUser.CustId.ToString(CultureInfo.InvariantCulture));
-                if (model == null) return RedirectToAction("Index", "Product");
-                return View(model);
+                var cart = client.Get<Cart>("Cart-" + currentUser.UserName);
+                return View("Cart", cart);
             }
         }
 
@@ -40,25 +41,24 @@ namespace B2CTouresBalon.Controllers
             var currentUser = System.Web.HttpContext.Current.User as CustomPrincipal;
             if (currentUser == null) return RedirectToAction("Index", "Account");
 
-            var clientConfiguration = new MemcachedClientConfiguration {Protocol = MemcachedProtocol.Binary};
-            clientConfiguration.Servers.Add(new IPEndPoint(IPAddress.Parse("memcached"), 32768));
+            var clientConfiguration = new MemcachedClientConfiguration { Protocol = MemcachedProtocol.Binary };
+            clientConfiguration.Servers.Add(new IPEndPoint(IPAddress.Parse("192.168.99.100"), 32768));
 
-            using (var client = new MemcachedClient(clientConfiguration))
+            using (var memcachedclient = new MemcachedClient(clientConfiguration))
             {
                 //consulto el cache del usuario logueado
-                var cart = client.Get<Cart>("Cart-" + currentUser.UserName);
+                var cart = memcachedclient.Get<Cart>("Cart-" + currentUser.UserName);
 
                 var proxy = new ProductosTouresBalonClient();
 
                 var producto = proxy.ConsultarProducto(TipoConsultaProducto.ID, idProducto.ToString()).First();
-
 
                 if (null == cart)
                 {
                     //si el carrito es vacio cree uno nuevo
                     cart = new Cart
                     {
-                        UserId = (int) currentUser.CustId,
+                        UserId = (int)currentUser.CustId,
                         Items = new List<Item>()
                     };
 
@@ -68,8 +68,7 @@ namespace B2CTouresBalon.Controllers
                         Cantidad = cantidad
                     };
                     cart.Items.Add(item);
-
-                    client.Store(StoreMode.Set, "Cart-" + currentUser.UserName, cart);
+                    memcachedclient.Store(StoreMode.Set, "Cart-" + currentUser.UserName, cart);
                 }
                 else
                 {
@@ -77,7 +76,7 @@ namespace B2CTouresBalon.Controllers
                     {
                         //Si existe un carrito busco el item y adiciono la cantidad
                         i.Cantidad = i.Cantidad + cantidad;
-                        client.Store(StoreMode.Set, "Cart-" + currentUser.UserName, cart);
+                        memcachedclient.Store(StoreMode.Set, "Cart-" + currentUser.UserName, cart);
                         return View("cart", cart);
                     }
 
@@ -88,7 +87,7 @@ namespace B2CTouresBalon.Controllers
                         Cantidad = cantidad
                     };
                     cart.Items.Add(item);
-                    client.Store(StoreMode.Set, "Cart-" + currentUser.UserName, cart);
+                    memcachedclient.Store(StoreMode.Set, "Cart-" + currentUser.UserName, cart);
                 }
                 return View("Cart", cart);
             }
@@ -104,29 +103,41 @@ namespace B2CTouresBalon.Controllers
 
 
             //Configuracion del MEMCACHED client
-            var clientConfiguration = new MemcachedClientConfiguration {Protocol = MemcachedProtocol.Binary};
-            clientConfiguration.Servers.Add(new IPEndPoint(IPAddress.Parse("memcached"), 32768));
+            var clientConfiguration = new MemcachedClientConfiguration { Protocol = MemcachedProtocol.Binary };
+            clientConfiguration.Servers.Add(new IPEndPoint(IPAddress.Parse("192.168.99.100"), 32768));
 
-            using (var client = new MemcachedClient(clientConfiguration))
+            using (var memcachedclient = new MemcachedClient(clientConfiguration))
             {
                 //consulto el cache del usuario logueado
-                var cart = client.Get<Cart>("Cart-" + currentUser.UserName);
-                if (cart == null) return View("Cart", cart);
-
+                var cart = memcachedclient.Get<Cart>("Cart-" + currentUser.UserName);
+                if (cart == null) return View("Cart");
+                var remove = new Item();
                 //Consulto el item en el carrito y le resto al cantidad si llega a cero lo elimino.
                 foreach (var i in cart.Items.Where(i => i.Producto.id_producto == idProducto))
                 {
-                    if (i.Cantidad >= cantidad)
+                    if (i.Cantidad > cantidad)
                     {
                         i.Cantidad = i.Cantidad - cantidad;
                     }
                     else
                     {
-                        cart.Items.Remove(i);
+                        remove = i;
                     }
-                    client.Store(StoreMode.Set, "Cart-" + currentUser.UserName, cart);
-                    return View("cart", cart);
+                    
                 }
+                if (!remove.Equals(null))
+                {
+                    cart.Items.Remove(remove);
+                }
+                if (cart.Items.Count != 0)
+                {
+                    memcachedclient.Store(StoreMode.Set, "Cart-" + currentUser.UserName, cart);
+                }
+                else
+                {
+                    memcachedclient.Remove("Cart-" + currentUser.UserName);
+                }
+                
                 return View("Cart", cart);
             }
         }

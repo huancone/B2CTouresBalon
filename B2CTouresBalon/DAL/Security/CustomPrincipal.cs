@@ -9,7 +9,7 @@ namespace B2CTouresBalon.DAL.Security
         public IIdentity Identity { get; }
         public bool IsInRole(string role)
         {
-            return roles.Any(role.Contains);
+            return Roles.Any(role.Contains);
         }
 
         public CustomPrincipal(string username)
@@ -22,7 +22,7 @@ namespace B2CTouresBalon.DAL.Security
         public string LastName { get; set; }
 
         public decimal CustId { get; set; }
-        public string[] roles { get; set; }
+        public string[] Roles { get; set; }
         public void Dispose()
         {
             throw new NotImplementedException();
@@ -35,6 +35,6 @@ namespace B2CTouresBalon.DAL.Security
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal CustId { get; set; }
-        public string[] roles { get; set; }
+        public string[] Roles { get; set; }
     }
 }

@@ -44,13 +44,24 @@ namespace B2CTouresBalon.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "CUSTID,FNAME,LNAME,PHONENUMBER,EMAIL,PASSWORD,CREDITCARDTYPE,CREDITCARDNUMBER,STATUS")] CUSTOMER customer)
+        public async Task<ActionResult> Create([Bind(Include = "FNAME,LNAME,PHONENUMBER,EMAIL,PASSWORD,CREDITCARDTYPE,CREDITCARDNUMBER,STATUS")] CUSTOMER customer)
         {
             if (!ModelState.IsValid) return View(customer);
-            using (var db = new ClientContext()) { 
-                db.CUSTOMER.Add(customer);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index","Home");}
+            using (var db = new ClientContext())
+            {
+                var c = new CUSTOMER
+                {
+                    ADDRESS = customer.ADDRESS,
+                    FNAME = customer.FNAME,
+                    LNAME = customer.LNAME,
+                    EMAIL = customer.EMAIL,
+                    PHONENUMBER = customer.PHONENUMBER,
+                    PASSWORD = customer.PASSWORD
+                };
+                db.CUSTOMER.Add(c);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         // GET: Customer/Edit/5
@@ -59,13 +70,13 @@ namespace B2CTouresBalon.Controllers
             using (var db = new ClientContext())
             {
                 var customer = await db.CUSTOMER.FindAsync(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(customer);
             }
-            return View(customer);
-            }
-                
+
         }
 
         // POST: Customer/Edit/5

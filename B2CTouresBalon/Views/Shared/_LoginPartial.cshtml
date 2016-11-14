@@ -9,7 +9,8 @@
             <li>
                 @Html.ActionLink("Hello " + User.FirstName + "!", "Details", "Customer", new { id = (int)(User.CustId)}, null)
             </li>
-            <li>@Html.ActionLink("Mis Ordenes", "Index", "Orden") </li>
+            <li>@Html.ActionLink("Mis Ordenes", "Index", "Orden")</li>
+            <li>@Html.ActionLink("Carrito", "Index", "ShoppingCart") </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
     }

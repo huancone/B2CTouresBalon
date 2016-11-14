@@ -11,6 +11,7 @@ namespace B2CTouresBalon.Models
         public List<Item> Items { get; set; }
     }
 
+    [Serializable]
     public class Item
     {
         public Producto Producto { get; set; }
