@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
 using B2CTouresBalon.DAL.Security;
 using B2CTouresBalon.Models;
+using B2CTouresBalon.ProxyServiceB2C;
 using B2CTouresBalon.ServicioClientes;
-using B2CTouresBalon.ServicioOrdenes;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
-using Item = B2CTouresBalon.ServicioOrdenes.Item;
+using EstatusOrden = B2CTouresBalon.ProxyServiceB2C.EstatusOrden;
+using Item = B2CTouresBalon.ProxyServiceB2C.Item;
+using Orden = B2CTouresBalon.ProxyServiceB2C.Orden;
 
 namespace B2CTouresBalon.Controllers
 {
@@ -60,10 +58,10 @@ namespace B2CTouresBalon.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CheckoutModel checkout)
         {
-            var items = new List<ServicioOrdenes.Item>();
+            var items = new List<Item>();
             try
             {
-                var proxy = new OrdenesTouresBalonClient();
+                var proxy = new ServiceProxyB2CClient();
 
                 var currentUser = System.Web.HttpContext.Current.User as CustomPrincipal;
                 if (currentUser == null) return RedirectToAction("Index", "Account");
@@ -101,14 +99,11 @@ namespace B2CTouresBalon.Controllers
                 {
                     return View();
                 }
-                else
+                using (var cartCacheClient = new MemcachedClient(clientConfiguration))
                 {
-                    using (var cartCacheClient = new MemcachedClient(clientConfiguration))
-                    {
-                        cartCacheClient.Remove("Cart-" + currentUser.UserName);
-                    }
-                    return RedirectToAction("Index", "Orden", new { OrderId = orderId });
+                    cartCacheClient.Remove("Cart-" + currentUser.UserName);
                 }
+                return RedirectToAction("Index", "Orden", new { OrderId = orderId });
             }
             catch
             {

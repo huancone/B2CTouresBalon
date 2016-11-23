@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using B2CTouresBalon.ServicioClientes;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace B2CTouresBalon.Models
 {

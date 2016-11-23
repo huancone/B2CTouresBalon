@@ -1,4 +1,4 @@
-﻿using B2CTouresBalon.ServicioProductos;
+﻿using B2CTouresBalon.ProxyServiceB2C;
 
 namespace B2CTouresBalon.Models
 {

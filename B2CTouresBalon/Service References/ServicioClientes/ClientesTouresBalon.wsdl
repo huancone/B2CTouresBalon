@@ -226,77 +226,77 @@
       </xsd:complexType>
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="RegistrarClienteRequest">
-    <wsdl:part name="parameters" element="t:RegistrarCliente" />
-  </wsdl:message>
-  <wsdl:message name="RegistrarClienteResponse">
-    <wsdl:part name="parameters" element="t:RegistrarClienteResponse" />
-  </wsdl:message>
-  <wsdl:message name="AutenticarClienteRequest">
-    <wsdl:part name="parameters" element="t:AutenticarCliente" />
-  </wsdl:message>
   <wsdl:message name="AutenticarClienteResponse">
     <wsdl:part name="parameters" element="t:AutenticarClienteResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarClienteRequest">
-    <wsdl:part name="parameters" element="t:ActualizarCliente" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarClienteResponse">
-    <wsdl:part name="parameters" element="t:ActualizarClienteResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarContraseniaClienteRequest">
-    <wsdl:part name="parameters" element="t:ActualizarContraseniaCliente" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarContraseniaClienteResponse">
-    <wsdl:part name="parameters" element="t:ActualizarContraseniaClienteResponse" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarEstatusClienteRequest">
-    <wsdl:part name="parameters" element="t:ActualizarEstatusCliente" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarEstatusClienteResponse">
-    <wsdl:part name="parameters" element="t:ActualizarEstatusClienteResponse" />
-  </wsdl:message>
-  <wsdl:message name="ConsultarPorIdentificacionClienteRequest">
-    <wsdl:part name="parameters" element="t:ConsultarPorIdentificacionCliente" />
-  </wsdl:message>
-  <wsdl:message name="ConsultarPorIdentificacionClienteResponse">
-    <wsdl:part name="parameters" element="t:ConsultarPorIdentificacionClienteResponse" />
-  </wsdl:message>
-  <wsdl:message name="ConsultarPorProductoClienteRequest">
-    <wsdl:part name="parameters" element="t:ConsultarPorProductoCliente" />
-  </wsdl:message>
-  <wsdl:message name="ConsultarPorProductoClienteResponse">
-    <wsdl:part name="parameters" element="t:ConsultarPorProductoClienteResponse" />
   </wsdl:message>
   <wsdl:message name="ConsultarPorFactRangoClienteRequest">
     <wsdl:part name="parameters" element="t:ConsultarPorFactRangoCliente" />
   </wsdl:message>
-  <wsdl:message name="ConsultarPorFactRangoClienteResponse">
-    <wsdl:part name="parameters" element="t:ConsultarPorFactRangoClienteResponse" />
+  <wsdl:message name="ActualizarEstatusClienteResponse">
+    <wsdl:part name="parameters" element="t:ActualizarEstatusClienteResponse" />
   </wsdl:message>
-  <wsdl:message name="RegistrarClienteFault">
-    <wsdl:part name="parameters" element="t:RegistrarClienteFault" />
-  </wsdl:message>
-  <wsdl:message name="AutenticarClienteFault">
-    <wsdl:part name="parameters" element="t:AutenticarClienteFault" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarClienteFault">
-    <wsdl:part name="parameters" element="t:ActualizarClienteFault" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarContraseniaClienteFault">
-    <wsdl:part name="parameters" element="t:ActualizarContraseniaClienteFault" />
-  </wsdl:message>
-  <wsdl:message name="ActualizarEstatusClienteFault">
-    <wsdl:part name="parameters" element="t:ActualizarEstatusClienteFault" />
+  <wsdl:message name="ActualizarEstatusClienteRequest">
+    <wsdl:part name="parameters" element="t:ActualizarEstatusCliente" />
   </wsdl:message>
   <wsdl:message name="ConsultarPorIdentificacionClienteFault">
     <wsdl:part name="parameters" element="t:ConsultarPorIdentificacionClienteFault" />
   </wsdl:message>
+  <wsdl:message name="RegistrarClienteFault">
+    <wsdl:part name="parameters" element="t:RegistrarClienteFault" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPorProductoClienteRequest">
+    <wsdl:part name="parameters" element="t:ConsultarPorProductoCliente" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarContraseniaClienteRequest">
+    <wsdl:part name="parameters" element="t:ActualizarContraseniaCliente" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarClienteResponse">
+    <wsdl:part name="parameters" element="t:RegistrarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarClienteRequest">
+    <wsdl:part name="parameters" element="t:ActualizarCliente" />
+  </wsdl:message>
+  <wsdl:message name="AutenticarClienteFault">
+    <wsdl:part name="parameters" element="t:AutenticarClienteFault" />
+  </wsdl:message>
+  <wsdl:message name="AutenticarClienteRequest">
+    <wsdl:part name="parameters" element="t:AutenticarCliente" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarContraseniaClienteFault">
+    <wsdl:part name="parameters" element="t:ActualizarContraseniaClienteFault" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPorProductoClienteResponse">
+    <wsdl:part name="parameters" element="t:ConsultarPorProductoClienteResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultarPorProductoClienteFault">
     <wsdl:part name="parameters" element="t:ConsultarPorProductoClienteFault" />
   </wsdl:message>
+  <wsdl:message name="ConsultarPorIdentificacionClienteRequest">
+    <wsdl:part name="parameters" element="t:ConsultarPorIdentificacionCliente" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPorFactRangoClienteResponse">
+    <wsdl:part name="parameters" element="t:ConsultarPorFactRangoClienteResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultarPorFactRangoClienteFault">
     <wsdl:part name="parameters" element="t:ConsultarPorFactRangoClienteFault" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarEstatusClienteFault">
+    <wsdl:part name="parameters" element="t:ActualizarEstatusClienteFault" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarContraseniaClienteResponse">
+    <wsdl:part name="parameters" element="t:ActualizarContraseniaClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPorIdentificacionClienteResponse">
+    <wsdl:part name="parameters" element="t:ConsultarPorIdentificacionClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarClienteFault">
+    <wsdl:part name="parameters" element="t:ActualizarClienteFault" />
+  </wsdl:message>
+  <wsdl:message name="ActualizarClienteResponse">
+    <wsdl:part name="parameters" element="t:ActualizarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistrarClienteRequest">
+    <wsdl:part name="parameters" element="t:RegistrarCliente" />
   </wsdl:message>
   <wsdl:portType name="ClientesTouresBalon">
     <wsdl:operation name="RegistrarCliente">

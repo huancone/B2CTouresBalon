@@ -7,14 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
 namespace DataAccess
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class CUSTOMER
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CUSTOMER()
         {
             this.ORDERS = new HashSet<ORDERS>();
@@ -22,18 +23,44 @@ namespace DataAccess
         }
     
         public decimal CUSTID { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "First Name")]
         public string FNAME { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Last Name")]
         public string LNAME { get; set; }
+
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number")]
         public string PHONENUMBER { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email Adrress")]
         public string EMAIL { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string PASSWORD { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Credit Card Type")]
         public string CREDITCARDTYPE { get; set; }
+
+        [DataType(DataType.CreditCard)]
+        [Display(Name = "Credit Card Number")]
         public string CREDITCARDNUMBER { get; set; }
         public string STATUS { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ORDERS> ORDERS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ADDRESS> ADDRESS { get; set; }
     }
 }

@@ -1,39 +1,46 @@
 ﻿@model B2CTouresBalon.Models.Cart
-
-<table class="table">
-    <tr>
-        <th>
-            Espectaculo
-        </th>
-        <th>
-            Cantidad
-        </th>
-        <th></th>
-    </tr>
-    @{
-        if (Model?.Items != null)
-        {
-
-            foreach (var item in Model.Items)
+@{
+    ViewBag.Title = "Carrito de Compras";
+}
+<div  class="form-horizontal">
+    <hr />
+    <table class="table">
+        <tr>
+            <th>
+                Espectaculo
+            </th>
+            <th>
+                Cantidad
+            </th>
+            <th></th>
+        </tr>
+        @{
+            if (Model?.Items != null)
             {
-                <tr>
-                    <td>
-                        @item.Producto.espectaculo
-                    </td>
-                    <td>
-                        @item.Cantidad
-                    </td>
-                    <td>
-                        @Html.ActionLink("Delete", "DeleteItem", "ShoppingCart", new { idProducto = item.Producto.id_producto, cantidad = 1 }, null)
-                    </td>
-                </tr>
+
+                foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>
+                            @item.Producto.espectaculo
+                        </td>
+                        <td>
+                            @item.Cantidad
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "DeleteItem", "ShoppingCart", new { idProducto = item.Producto.id_producto, cantidad = 1 }, null)
+                        </td>
+                    </tr>
+                }
+
+
             }
         }
-    }
-</table>
-<p>
-    @Html.ActionLink("Check Out", "Create", "Checkout")
-</p>
-<p>
-    @Html.ActionLink("Back to Home", "Index", "Home")
-</p>
+    </table>
+    <p>
+        @Html.ActionLink("Check Out", "Create", "Checkout")
+    </p>
+    <p>
+        @Html.ActionLink("Back to Home", "Index", "Home")
+    </p>
+</div>

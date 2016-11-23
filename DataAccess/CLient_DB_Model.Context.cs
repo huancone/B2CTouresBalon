@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
 namespace DataAccess
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
     public partial class ClientContext : DbContext
     {
         public ClientContext()
@@ -24,7 +23,7 @@ namespace DataAccess
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+        
         public virtual DbSet<ADDRESS> ADDRESS { get; set; }
         public virtual DbSet<CUSTOMER> CUSTOMER { get; set; }
         public virtual DbSet<ITEMS> ITEMS { get; set; }

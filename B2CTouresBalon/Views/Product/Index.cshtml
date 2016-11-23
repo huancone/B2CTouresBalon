@@ -1,5 +1,7 @@
-﻿@model B2CTouresBalon.Models.ProductosModel
+﻿@using System.Configuration
+@model B2CTouresBalon.Models.ProductosModel
 
+<hr />
 <hr />
 
 @using (Html.BeginForm("Index", "Product", FormMethod.Get))
@@ -38,23 +40,24 @@
                         foreach (var producto in Model.Productos)
                         {
                             var precio = producto.tipo_espectaculo.precio + producto.tipo_hospedaje.precio + producto.tipo_transporte.precio;
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h5>
-                                <a href="@Url.Action("Details", "Product", new {idProducto = producto.id_producto})" class="elements"><span class="text-justify">@producto.espectaculo</span></a>
-                            </h5>
-                            <p>
-                                @producto.ciudad_espectaculo.pais
-                            </p>
-                            <h5>$ @precio</h5>
-                            <h5>
-                                @Html.ActionLink("Add to Cart", "AddItem", "ShoppingCart", new { idProducto = producto.id_producto, cantidad = 1 }, null)
-                            </h5>
-                        </div>
-                    </div>
-                </div>
+                            var url = ConfigurationManager.AppSettings.Get("urlImages") + producto.imagen_producto + "min.jpg";
+                            <div class="col-sm-4 col-lg-4 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="@url" alt="">
+                                    <div class="caption">
+                                        <h5>
+                                            <a href="@Url.Action("Details", "Product", new {idProducto = producto.id_producto})" class="elements"><span class="text-justify">@producto.espectaculo</span></a>
+                                        </h5>
+                                        <p>
+                                            @producto.ciudad_espectaculo.pais
+                                        </p>
+                                        <h5>$ @precio</h5>
+                                        <h5>
+                                            @Html.ActionLink("Add to Cart", "AddItem", "ShoppingCart", new { idProducto = producto.id_producto, cantidad = 1 }, null)
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     }
                 }

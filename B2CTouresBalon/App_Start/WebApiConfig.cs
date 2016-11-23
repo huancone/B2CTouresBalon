@@ -1,6 +1,5 @@
 ﻿using System.Web.Http;
 
-
 namespace B2CTouresBalon
 {
     public static class WebApiConfig

@@ -1,4 +1,4 @@
-﻿@using Microsoft.Ajax.Utilities
+﻿@using System.Configuration
 @model B2CTouresBalon.Models.ProductosModel
 
 @if (Model != null)
@@ -83,9 +83,10 @@
                         foreach (var prod in Model.ProductosRelacionados)
                         {
                             var precio = prod.tipo_espectaculo.precio + prod.tipo_hospedaje.precio + prod.tipo_transporte.precio;
+                            var url = ConfigurationManager.AppSettings.Get("urlImages") + prod.imagen_producto + "min.jpg";
                             <div class="col-sm-4 col-lg-4 col-md-4">
                                 <div class="thumbnail">
-                                    <img src="http://placehold.it/320x150" alt="">
+                                    <img src="@url" alt="">
                                     <div class="caption">
                                         <h5>
                                             <a href="@Url.Action("Details", "Product", new {idProducto = prod.id_producto})" class="elements"><span class="text-justify">@prod.espectaculo</span></a>

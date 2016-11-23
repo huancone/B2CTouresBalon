@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using B2CTouresBalon.ServicioOrdenes;
+﻿using B2CTouresBalon.ProxyServiceB2C;
 
 namespace B2CTouresBalon.Models
 {

@@ -7,28 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace DataAccess
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class ORDERS
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ORDERS()
         {
             this.ITEMS = new HashSet<ITEMS>();
         }
     
         public decimal ORDID { get; set; }
-        public Nullable<System.DateTime> ORDERDATE { get; set; }
+        public Nullable<DateTime> ORDERDATE { get; set; }
         public Nullable<decimal> PRICE { get; set; }
         public string STATUS { get; set; }
         public string COMMENTS { get; set; }
         public decimal CUSTID { get; set; }
     
         public virtual CUSTOMER CUSTOMER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ITEMS> ITEMS { get; set; }
     }
 }

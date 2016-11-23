@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f822779a-2a71-412e-888e-304de79416ee" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9f3c36f6-62c1-4393-8d21-85e435045b0e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8080/TouresBalonClientesWS/ClientesTouresBalon?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://jdt_pc:8080/TouresBalonClientesWS/ClientesTouresBalon?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ClientesTouresBalon.wsdl" MetadataType="Wsdl" ID="444556ed-45d5-498a-b4ae-920dcc653ebc" SourceId="1" SourceUrl="http://localhost:8080/TouresBalonClientesWS/ClientesTouresBalon?wsdl" />
+    <MetadataFile FileName="ClientesTouresBalon.wsdl" MetadataType="Wsdl" ID="4ad9bcf0-48f6-47f5-8a42-2c5d32f2f554" SourceId="1" SourceUrl="http://jdt_pc:8080/TouresBalonClientesWS/ClientesTouresBalon?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

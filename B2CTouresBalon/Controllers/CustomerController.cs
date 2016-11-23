@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using DataAccess;
 
@@ -44,7 +38,7 @@ namespace B2CTouresBalon.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "FNAME,LNAME,PHONENUMBER,EMAIL,PASSWORD,CREDITCARDTYPE,CREDITCARDNUMBER,STATUS")] CUSTOMER customer)
+        public async Task<ActionResult> Create([Bind(Include = "FNAME,LNAME,PHONENUMBER,EMAIL,PASSWORD,CREDITCARDTYPE,CREDITCARDNUMBER")] CUSTOMER customer)
         {
             if (!ModelState.IsValid) return View(customer);
             using (var db = new ClientContext())
@@ -56,7 +50,8 @@ namespace B2CTouresBalon.Controllers
                     LNAME = customer.LNAME,
                     EMAIL = customer.EMAIL,
                     PHONENUMBER = customer.PHONENUMBER,
-                    PASSWORD = customer.PASSWORD
+                    PASSWORD = customer.PASSWORD,
+                    STATUS = "PLATEADO"
                 };
                 db.CUSTOMER.Add(c);
                 await db.SaveChangesAsync();
@@ -84,7 +79,7 @@ namespace B2CTouresBalon.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "FNAME,LNAME,PHONENUMBER,EMAIL,PASSWORD,CREDITCARDTYPE,CREDITCARDNUMBER")] CUSTOMER customer)
+        public async Task<ActionResult> Edit([Bind(Include = "CUSTID,FNAME,LNAME,PHONENUMBER,EMAIL,PASSWORD,CREDITCARDTYPE,CREDITCARDNUMBER")] CUSTOMER customer)
         {
             if (!ModelState.IsValid) return View(customer);
             using (var db = new ClientContext())

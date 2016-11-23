@@ -1,4 +1,5 @@
-﻿@model B2CTouresBalon.Models.PromocionesModel
+﻿@using System.Configuration
+@model B2CTouresBalon.Models.PromocionesModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -8,7 +9,7 @@
 <div id="Promotions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         @{
-            if (Model != null)
+            if (Model.Promociones != null)
             {
                 var i = 0;
                 foreach (var itemClass in Model.Promociones.Select(producto => i++ == 0 ? "active" : ""))
@@ -20,14 +21,15 @@
     </ol>
     <div class="carousel-inner" role="listbox">
         @{
-            if (Model != null)
+            if (Model.Promociones != null)
             {
                 var j = 0;
                 foreach (var producto in Model.Promociones)
                 {
+                    var url = ConfigurationManager.AppSettings.Get("urlImages") + producto.imagen_producto + ".jpg";
                     var itemClass = j++ == 0 ? "item active" : "item";
                     <div class="@itemClass">
-                        <img class="first-slide" src="http://placehold.it/1280x300" alt="slide">
+                        <img class="first-slide" src="@url" alt="slide">
                         <div class="container">
                             <div class="carousel-caption">
                                 <h1>@producto.espectaculo</h1>

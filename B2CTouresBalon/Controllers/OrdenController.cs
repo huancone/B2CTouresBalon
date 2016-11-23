@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using B2CTouresBalon.Models;
-using Enyim.Caching.Configuration;
-using System.Net;
-using Enyim.Caching.Memcached;
-using Enyim.Caching;
 using B2CTouresBalon.DAL.Security;
-using System.Linq;
-using B2CTouresBalon.ServicioOrdenes;
-using B2CTouresBalon.ServicioClientes;
-using RespuestaGenerica = B2CTouresBalon.ServicioOrdenes.RespuestaGenerica;
+using B2CTouresBalon.Models;
+using B2CTouresBalon.ProxyServiceB2C;
+using B2CTouresBalon.ServiceOrdenes;
+using CancelarOrdenesFault = B2CTouresBalon.ProxyServiceB2C.CancelarOrdenesFault;
+using ConsultarClientesOrdenesFault = B2CTouresBalon.ProxyServiceB2C.ConsultarClientesOrdenesFault;
+using RespuestaGenerica = B2CTouresBalon.ProxyServiceB2C.RespuestaGenerica;
 
 namespace B2CTouresBalon.Controllers
 {
@@ -25,7 +22,7 @@ namespace B2CTouresBalon.Controllers
                 var currentUser = System.Web.HttpContext.Current.User as CustomPrincipal;
                 if (currentUser == null) return RedirectToAction("Index", "Account");
 
-                var proxy = new OrdenesTouresBalonClient();
+                var proxy = new ServiceProxyB2CClient();
             
                 var lstOrden = proxy.ConsultarClientesOrdenes((int)currentUser.CustId);
 
@@ -39,17 +36,17 @@ namespace B2CTouresBalon.Controllers
             catch (CommunicationException cex)
             {
 
-                throw new CommunicationException("Error de conmunicacion " + cex.ToString());
+                throw new CommunicationException("Error de conmunicacion " + cex);
             }
 
         }
 
         public ActionResult  Cancelar(int idOrden)
         {
-            var cancela = new OrdenesTouresBalonClient(); 
+            var cancela = new ServiceProxyB2CClient(); 
             RespuestaGenerica rpta;
             var valorcancela = new RespuestaCancelacionModel();
-            var idOrdenes = new int[1] { idOrden } ;
+            var idOrdenes = new[] { idOrden } ;
 
             try
             {
@@ -72,7 +69,6 @@ namespace B2CTouresBalon.Controllers
 
             return View("_Cancelar", valorcancela);
         }
-
 
         public ActionResult Detalle (int idOrden )
         {

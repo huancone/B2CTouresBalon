@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity.Core.Mapping;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using B2CTouresBalon.DAL.Security;
 using B2CTouresBalon.Models;
+using B2CTouresBalon.ProxyServiceB2C;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
 using Item = B2CTouresBalon.Models.Item;
-using B2CTouresBalon.ServicioProductos;
-using Microsoft.Ajax.Utilities;
 
 namespace B2CTouresBalon.Controllers
 {
@@ -49,7 +46,7 @@ namespace B2CTouresBalon.Controllers
                 //consulto el cache del usuario logueado
                 var cart = memcachedclient.Get<Cart>("Cart-" + currentUser.UserName);
 
-                var proxy = new ProductosTouresBalonClient();
+                var proxy = new ServiceProxyB2CClient();
 
                 var producto = proxy.ConsultarProducto(TipoConsultaProducto.ID, idProducto.ToString()).First();
 
